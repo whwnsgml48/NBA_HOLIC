@@ -5,12 +5,12 @@ from scipy.stats import zscore
 
 
 def get_managers():
-    team_roaster = pd.read_csv('./data/team_list.csv')
+    team_roaster = pd.read_csv('./data/team_list.txt')
     return team_roaster.drop_duplicates(subset=['MANAGER']).MANAGER.to_list()
 
 
 def get_df():
-    roaster = pd.read_csv('./data/team_list.csv')
+    roaster = pd.read_csv('./data/team_list.txt')
     roaster.MANAGER = roaster.MANAGER.astype('string')
     roaster.PLAYER = roaster.PLAYER.astype('string')
 

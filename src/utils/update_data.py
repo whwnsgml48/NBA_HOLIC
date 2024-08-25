@@ -129,7 +129,7 @@ class BasketballReference:
         __team_stat = pd.DataFrame(team_stats, columns=headers)
         self.team_advanced_stat = __team_stat[['Team', 'Age', 'W', 'L', 'PW', 'PL', 'MOV', 'SOS', 'SRS', 'ORtg', 'DRtg', 'NRtg', 'Pace', 'FTr', '3PAr',
         'TS%', 'OF-eFG%', 'OF-TOV%', 'OF-ORB%', 'OF-FT/FGA', 'DF-eFG%', 'DF-TOV%', 'DF-ORB%', 'DF-FT/FGA', 'Arena', 'Attend.', 'Attend./G']]
-        print(self.team_advanced_stat)
+
     def preprocess_stats(self):
         # raw stats to fantasy stats
         fantasy_stat = self.raw_stat

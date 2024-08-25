@@ -1,0 +1,14 @@
+MANAGER,PLAYER
+경찬,default
+윤범,default
+단열,default
+준희,default
+병욱,default
+철웅,default
+진빈,default
+지원,default
+원준,default
+정명,default
+수현,default
+두현,default
+경찬,DeMar DeRozan

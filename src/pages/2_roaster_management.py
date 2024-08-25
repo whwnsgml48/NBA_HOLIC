@@ -3,7 +3,8 @@ import pandas as pd
 
 
 def get_managers():
-    team_roaster = pd.read_csv('./data/team_list.csv')
+    team_roaster = pd.read_csv('./data/team_list.txt')
+    print(team_roaster)
     return team_roaster.drop_duplicates(subset=['MANAGER']).MANAGER.to_list()
 
 
@@ -11,7 +12,8 @@ managers = get_managers()
 
 
 def get_team_list(manager):
-    team_roaster = pd.read_csv('./data/team_list.csv')
+    team_roaster = pd.read_csv('./data/team_list.txt')
+    print(team_roaster)
     team_roaster = team_roaster[team_roaster['MANAGER'] == manager]
     return team_roaster
 
@@ -22,7 +24,7 @@ def get_player_list():
 
 
 def add(manager, player):
-    roaster_total = pd.read_csv('./data/team_list.csv')
+    roaster_total = pd.read_csv('./data/team_list.txt')
     added = pd.DataFrame([{'MANAGER': manager,
                            'PLAYER': player}])
     _tmp = roaster_total[(roaster_total.MANAGER == manager) & (roaster_total.PLAYER == player)]
@@ -31,19 +33,19 @@ def add(manager, player):
         return
     else:
         roaster_total = pd.concat([roaster_total, added])
-        roaster_total.to_csv('./data/team_list.csv', index=False)
+        roaster_total.to_csv('./data/team_list.txt', index=False)
         st.success(f'{player} added !', icon='✅')
 
 
 def drop(manager, player):
-    roaster_total = pd.read_csv('./data/team_list.csv')
+    roaster_total = pd.read_csv('./data/team_list.txt')
     _tmp = roaster_total[(roaster_total.MANAGER == manager) & (roaster_total.PLAYER == player)]
     if _tmp.shape[0] == 0:
         st.error(f'{player} is a player not on your roaster.', icon="🚨")
         return
     else:
         roaster_total = roaster_total[~((roaster_total.MANAGER == manager) & (roaster_total.PLAYER == player))]
-        roaster_total.to_csv('./data/team_list.csv', index=False)
+        roaster_total.to_csv('./data/team_list.txt', index=False)
         st.success(f'{player} dropped !', icon='✅')
 
 
@@ -56,6 +58,7 @@ def main():
     ''')
     st.divider()
     manager = st.selectbox('Select manager', managers)
+    roaster = None
 
     with st.form('Add/Drop'):
         player = st.selectbox('select player', get_player_list())

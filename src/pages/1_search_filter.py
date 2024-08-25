@@ -100,7 +100,8 @@ def main():
     df = pd.read_csv('./data/fantasy_stat.csv')
     df.Pos = df.Pos.astype('category')
     df.Player = df.Player.astype('string')
-    df_manager = pd.read_csv('./data/team_list.csv')
+    df_manager = pd.read_csv('./data/team_list.txt')
+    df_manager['Player'] = df_manager['PLAYER']
     df_manager['Player'] = df_manager.PLAYER
     df_manager.Player = df_manager.Player.astype('string')
 
