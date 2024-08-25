@@ -1,14 +1,121 @@
 MANAGER,PLAYER
-경찬,default
-윤범,default
-단열,default
-준희,default
-병욱,default
-철웅,default
-진빈,default
-지원,default
-원준,default
-정명,default
-수현,default
-두현,default
+경찬,Nikola Jokić
+윤범,Luka Dončić
+단열,Shai Gilgeous-Alexander
+준희,Victor Wembanyama
+병욱,Giannis Antetokounmpo
+철웅,Joel Embiid
+진빈,Anthony Davis
+지원,Tyrese Haliburton
+원준,LeBron James
+정명,Jayson Tatum
+수현,Kevin Durant
+두현,Domantas Sabonis
+두현,Anthony Edwards
+수현,Trae Young
+정명,Stephen Curry
+원준,Donovan Mitchell
+지원,Kawhi Leonard
+진빈,Ja Morant
+철웅,Jalen Brunson
+병욱,De'Aaron Fox
+준희,Devin Booker
+단열,Tyrese Maxey
+윤범,Scottie Barnes
+경찬,Kyrie Irving
+경찬,Damian Lillard
+윤범,Paul George
+단열,Chet Holmgren
+준희,James Harden
+병욱,Paolo Banchero
+철웅,Karl-Anthony Towns
+진빈,Lauri Markkanen
+지원,Bam Adebayo
+원준,Alperen Sengun
+정명,Jalen Williams
+수현,LaMelo Ball
+두현,Dejounte Murray
+두현,Jarrett Allen
+수현,Jaren Jackson Jr.
+정명,Fred VanVleet
+원준,Cade Cunningham
+지원,Franz Wagner
+진빈,Evan Mobley
+철웅,Jaylen Brown
+병욱,Rudy Gobert
+준희,Jalen Johnson
+단열,Myles Turner
+윤범,Desmond Bane
 경찬,DeMar DeRozan
+경찬,Pascal Siakam
+윤범,Jamal Murray
+단열,Brandon Ingram
+준희,Jimmy Butler
+병욱,Bogdan Bogdanovic
+철웅,Immanuel Quickley
+진빈,Mikal Bridges
+지원,Zion Williamson
+원준,Devin Vassell
+정명,Derrick White
+수현,Tobias Harris
+두현,Tyler Herro
+두현,Julius Randle
+수현,Darius Garland
+정명,Nikola Vučević
+원준,Nic Claxton
+지원,Anfernee Simons
+진빈,Miles Bridges
+철웅,Zach LaVine
+병욱,Collin Sexton
+준희,Jalen Duren
+단열,Michael Porter Jr.
+윤범,Mark Williams
+경찬,Jabari Smith Jr.
+경찬,Brandon Miller
+윤범,Kristaps Porzingis
+단열,Jrue Holiday
+준희,Josh Giddey
+병욱,Zach Edey
+철웅,Aaron Gordon
+진빈,Bradley Beal
+지원,Deandre Ayton
+원준,Jalen Suggs
+정명,D'Angelo Russell
+수현,Kyle Kuzma
+두현,Coby White
+두현,Keegan Murray
+수현,Isaiah Hartenstein
+정명,Cam Thomas
+원준,Deni Avdija
+지원,Austin Reaves
+진빈,Brook Lopez
+철웅,Mike Conley
+병욱,Jordan Poole
+준희,RJ Barrett
+단열,Jonathan Kuminga
+윤범,Jerami Grant
+경찬,CJ McCollum
+경찬,Jusuf Nurkić
+윤범,Tyus Jones
+단열,Clint Capela
+준희,Shaedon Sharpe
+병욱,Norman Powell
+철웅,Klay Thompson
+진빈,Alex Caruso
+지원,Dennis Schroder
+원준,Jalen Green
+정명,OG Anunoby
+수현,Draymond Green
+두현,Amen Thompson
+두현,Daniel Gafford
+수현,PJ Washington
+정명,Naz Reid
+원준,Bobby Portis
+지원,Alex Sarr
+진빈,De'Anthony Melton
+철웅,Brandin Podziemski
+병욱,Donte DiVincenzo
+준희,Mitchell Robinson
+단열,Chris Paul
+윤범,Ivica Zubac
+경찬,Terry Rozier
