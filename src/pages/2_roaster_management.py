@@ -3,6 +3,7 @@ import pandas as pd
 
 from utils.update_sheet import SheetConnector
 
+
 def get_managers():
     team_roaster = SheetConnector('ROASTER').get_sheet()#pd.read_csv('./data/team_list.txt')
     print(team_roaster)

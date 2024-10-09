@@ -46,7 +46,6 @@ def get_df():
 
 
 def plot_radial(df, manager):
-    print(df)
     df = df.apply(zscore)
     if len(manager) > 0:
         df = df.loc[manager]
