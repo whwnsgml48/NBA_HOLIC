@@ -1,12 +1,15 @@
 import datetime
 import streamlit as st
+import pandas as pd
 from streamlit_modal import Modal
 
 from utils.update_data import BasketballReference
+from utils.update_sheet import SheetConnector
 
 modal = Modal(key='Demo Key', title='UPDATE DATA')
-
+st.set_page_config(layout='wide')
 updated_at = None
+conn = SheetConnector("updated_at")
 
 
 def get_date():
@@ -14,24 +17,23 @@ def get_date():
     return now.strftime('%Y-%m-%d %H:%M:%S')
 
 
-def set_update_date():
-    f = open('./update_time.txt', 'w')
-    f.write(f'{get_date()}')
-    f.close()
+def update_update_date(conn):
+    conn.update_sheet(pd.DataFrame({
+        'updated_at': [get_date()]
+    }))
     return
 
 
-def get_update_date():
-    f = open('./update_time.txt', 'r')
-    line = f.readline()
-    f.close()
-    return line
+def get_latest_update_date(conn):
+    latest_updated_time = conn.get_sheet()
+    latest_updated_time = latest_updated_time['updated_at'].dropna().tail(1)
+    return latest_updated_time.values[0]
 
 
 def main():
-    global updated_at
-    updated_at = get_update_date()
-    st.set_page_config(layout='wide')
+
+    global conn
+    updated_at = get_latest_update_date(conn)
     st.subheader('NBA FANTASY LEAGUE')
     st.title('NBAHOLIC')
     st.markdown(f'''
@@ -52,7 +54,7 @@ def main():
 
 
 def sidebar():
-    global updated_at
+    global conn
     sideb = st.sidebar
     refresh_btn = sideb.button('UPDATE STAT')
     if refresh_btn:
@@ -60,8 +62,8 @@ def sidebar():
             with st.spinner('Wait for it ..'):
                 stat_updator = BasketballReference()
                 stat_updator.run()
-                set_update_date()
-                updated_at = get_update_date()
+                update_update_date(conn)
+                #updated_at = get_update_date()
             st.success('updated!!')
 
 

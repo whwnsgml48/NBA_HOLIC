@@ -3,61 +3,12 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from urllib.request import urlopen
 
-N_PLAYERS_WITH_TOP_MPG = 500
 
-ALPHABET = {
-        1: 'A',
-        2: 'B',
-        3: 'C',
-        4: 'D',
-        5: 'E',
-        6: 'F',
-        7: 'G',
-        8: 'H',
-        9: 'I',
-        10: 'J',
-        11: 'K',
-        12: 'L',
-        13: 'M',
-        14: 'N',
-        15: 'O',
-        16: 'P',
-        17: 'Q',
-        18: 'R',
-        19: 'S',
-        20: 'T',
-        21: 'U',
-        22: 'V',
-        23: 'W',
-        24: 'X',
-        25: 'Y',
-        26: 'Z'
-    }
-BR_TO_YFB_STATS_NAME_MAP = {"G": "GP",
-                            "GS": "GS",
-                            "MP": "MIN",
-                            "FG": "FGM",
-                            "FGA": "FGA",
-                            "FG%": "FG%",
-                            "FT": "FTM",
-                            "FTA": "FTA",
-                            "FT%": "FT%",
-                            "3P": "3PTM",
-                            "3PA": "3PTA",
-                            "3P%": "3PT%",
-                            "PTS": "PTS",
-                            "DRB": "DREB",
-                            "ORB": "OREB",
-                            "TRB": "REB",
-                            "AST": "AST",
-                            "STL": "ST",
-                            "BLK": "BLK",
-                            "TOV": "TO",
-                            "PF": "PF"}
-
+from utils.conf import BR_TO_YFB_STATS_NAME_MAP, ALPHABET, N_PLAYERS_WITH_TOP_MPG
+from utils.update_sheet import SheetConnector
 
 def get_date():
-    now = datetime.datetime.now()
+    now = datetime.now()
     return now.strftime('%Y-%m-%d')
 
 
@@ -85,8 +36,8 @@ class BasketballReference:
         # Note on basketball reference for a player with multiple row , the first row is stats with team "TOT", and the last row is stats with current team
         for name in __stats_table[__stats_table["Player"].duplicated()]["Player"].drop_duplicates():
             num_teams = len(__stats_table[__stats_table["Player"] == name])
-            current_team = __stats_table.loc[__stats_table["Player"] == name, "Tm"].iloc[num_teams - 1]
-            __stats_table.loc[__stats_table["Player"] == name, "Tm"] = current_team
+            current_team = __stats_table.loc[__stats_table["Player"] == name, "Team"].iloc[num_teams - 1]
+            __stats_table.loc[__stats_table["Player"] == name, "Team"] = current_team
         __stats_table.drop_duplicates(subset="Player", inplace=True)
 
         #__stats_table["Player"] = __stats_table["Player"].apply(lambda x: formalize_name(x))
@@ -103,6 +54,8 @@ class BasketballReference:
         __stats_table = __stats_table.sort_values(by=['MPG'], ascending=False)
         __stats_table = __stats_table.head(N_PLAYERS_WITH_TOP_MPG)
         # __stats_table = __stats_table.sort_index()
+        __stats_table['Player'] = __stats_table.index
+
         self.raw_stat = __stats_table
 
     def get_advanced_stat(self):
@@ -143,17 +96,17 @@ class BasketballReference:
         fantasy_stat['STL'] = fantasy_stat['ST'] / fantasy_stat['GP']
         fantasy_stat['BLK'] = fantasy_stat['BLK'] / fantasy_stat['GP']
         fantasy_stat['TOV'] = fantasy_stat['TO'] / fantasy_stat['GP']
-        self.fantasy_stat = fantasy_stat[['Player', 'Pos', 'Tm', 'GP', 'MPG', 'FG%', '3PTS', 'FT%', 'PTS', 'REB', 'AST', 'STL', 'BLK', 'TOV']]
+        self.fantasy_stat = fantasy_stat[['Player', 'FG%', '3PTS', 'FT%', 'PTS', 'REB', 'AST', 'STL', 'BLK', 'TOV', 'Pos', 'Team', 'GP', 'MPG']]
 
     def cal_custom_stats(self):
         return
 
     def save_stats(self, is_history=False):
         # save stat to data
-        if is_history:
-            self.raw_stat(f'./data/raw_stat_{get_date()}.csv', index=False)
-        self.fantasy_stat.to_csv('./data/fantasy_stat.csv', index=False)
-        self.team_advanced_stat.to_csv('./data/team_advanced_stat.csv', index=False)
+        cols = ['Player'] + [i for i in self.raw_stat.columns.tolist() if i not in ('Player', 'STL', 'TOV', '3PTS')]
+        SheetConnector('RAW STATS').update_sheet(self.raw_stat[cols])
+        SheetConnector('TEAM STATS').update_sheet(self.team_advanced_stat)
+        SheetConnector('FANTASY STATS').update_sheet(self.fantasy_stat)
         return
 
     def run(self):

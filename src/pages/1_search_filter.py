@@ -3,6 +3,8 @@ import streamlit as st
 from pandas.api.types import is_categorical_dtype, is_numeric_dtype, is_object_dtype, is_datetime64_any_dtype
 import plotly.figure_factory as ff
 
+from utils.update_sheet import SheetConnector
+
 
 def show_histogram(df):
     show_dist = st.toggle('show distribution')
@@ -97,10 +99,10 @@ def main():
     - 판타지에서 사용하는 스탯 기준으로 선수를 검색 가능합니다.
     ''')
 
-    df = pd.read_csv('./data/fantasy_stat.csv')
+    df = SheetConnector('FANTASY STATS').get_sheet().dropna()#pd.read_csv('./data/fantasy_stat.csv')
     df.Pos = df.Pos.astype('category')
     df.Player = df.Player.astype('string')
-    df_manager = pd.read_csv('./data/team_list.txt')
+    df_manager = SheetConnector('ROASTER').get_sheet()#pd.read_csv('./data/team_list.txt')
     df_manager['Player'] = df_manager['PLAYER']
     df_manager['Player'] = df_manager.PLAYER
     df_manager.Player = df_manager.Player.astype('string')
@@ -108,14 +110,13 @@ def main():
     df = df.join(df_manager[['MANAGER', 'Player']].set_index('Player'), how='left', on='Player')
     df.MANAGER = df.MANAGER.fillna('FA')
     df.MANAGER = df.MANAGER.astype('string')
-    df.Tm = df.Tm.astype('string')
-
+    df.Team = df.Team.astype('string')
     st.divider()
     fig = show_histogram(df)
     if fig:
         st.plotly_chart(fig, use_container_width=True)
 
-    st.dataframe(filter_dataframe(df[['MANAGER', 'Player', 'Pos', 'Tm', 'GP', 'MPG', 'FG%', '3PTS', 'FT%', 'PTS', 'REB', 'AST', 'STL', 'BLK', 'TOV']]), width=1000, height=1000)
+    st.dataframe(filter_dataframe(df[['MANAGER', 'Player', 'Pos', 'Team', 'GP', 'MPG', 'FG%', '3PTS', 'FT%', 'PTS', 'REB', 'AST', 'STL', 'BLK', 'TOV']]), width=1000, height=1000)
 
 
 if __name__ == '__main__':
