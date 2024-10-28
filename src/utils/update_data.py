@@ -14,7 +14,7 @@ def get_date():
 
 class BasketballReference:
     def __init__(self):
-        self.year = 2025
+        self.year = 2024
         self.raw_stat = None
         self.fantasy_stat = None
         self.team_advanced_stat = None
